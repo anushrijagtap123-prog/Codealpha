@@ -1,43 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Gallery</title>
-<link rel="stylesheet" href="style.css">
+<title>Basic Calculator</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f2f2f2;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.calculator{
+background:#222;
+padding:20px;
+border-radius:10px;
+width:260px;
+}
+
+#display{
+width:100%;
+height:40px;
+margin-bottom:10px;
+font-size:20px;
+text-align:right;
+padding:5px;
+border:none;
+border-radius:5px;
+}
+
+.buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
+
+button{
+padding:15px;
+font-size:16px;
+border:none;
+border-radius:5px;
+background:#444;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#666;
+}
+
+.zero{
+grid-column:span 2;
+}
+</style>
+
 </head>
+
 <body>
 
-<h1>Image Gallery</h1>
+<div class="calculator">
 
-<!-- Filter Buttons -->
-<div class="filters">
-<button onclick="filterImages('all')">All</button>
-<button onclick="filterImages('nature')">Nature</button>
-<button onclick="filterImages('city')">City</button>
-<button onclick="filterImages('animals')">Animals</button>
+<input type="text" id="display" disabled>
+
+<div class="buttons">
+
+<button onclick="clearDisplay()">C</button>
+<button onclick="deleteLast()">DEL</button>
+<button onclick="append('/')">÷</button>
+<button onclick="append('*')">×</button>
+
+<button onclick="append('7')">7</button>
+<button onclick="append('8')">8</button>
+<button onclick="append('9')">9</button>
+<button onclick="append('-')">-</button>
+
+<button onclick="append('4')">4</button>
+<button onclick="append('5')">5</button>
+<button onclick="append('6')">6</button>
+<button onclick="append('+')">+</button>
+
+<button onclick="append('1')">1</button>
+<button onclick="append('2')">2</button>
+<button onclick="append('3')">3</button>
+<button onclick="calculate()">=</button>
+
+<button onclick="append('0')" class="zero">0</button>
+<button onclick="append('.')">.</button>
+
+</div>
 </div>
 
-<!-- Gallery -->
-<div class="gallery">
+<script>
 
-<img src="https://picsum.photos/id/1018/400/300" class="gallery-item nature" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1015/400/300" class="gallery-item nature" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1011/400/300" class="gallery-item city" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1003/400/300" class="gallery-item animals" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1025/400/300" class="gallery-item animals" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1031/400/300" class="gallery-item city" onclick="openLightbox(this)">
+let display=document.getElementById("display");
 
-</div>
+function append(value){
+display.value+=value;
+}
 
-<!-- Lightbox -->
-<div id="lightbox">
-<span class="close" onclick="closeLightbox()">×</span>
-<button class="prev" onclick="changeImage(-1)">❮</button>
-<img id="lightbox-img">
-<button class="next" onclick="changeImage(1)">❯</button>
-</div>
+function clearDisplay(){
+display.value="";
+}
 
-<script src="script.js"></script>
-</body>
-</html>
+function deleteLast(){
+display.value=display.value.slice(0,-1);
+}
+
+function calculate(){
